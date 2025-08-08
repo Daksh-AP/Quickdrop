@@ -481,7 +481,7 @@ export class P2PService {
 
     private receivedChunks: Map<string, { chunks: ArrayBuffer[]; totalSize: number; receivedSize: number; fileName: string }> = new Map();
 
-    private handleDataChannelMessage(data: any, peerId: string) {
+    private async handleDataChannelMessage(data: any, peerId: string) {
         try {
             if (typeof data === 'string') {
                 const message = JSON.parse(data);
@@ -503,11 +503,23 @@ export class P2PService {
                     }
                 }
             } else {
-                // Binary data (file chunk)
-                const view = new DataView(data);
+                // Binary data (file chunk) - handle both ArrayBuffer and Blob
+                let arrayBuffer: ArrayBuffer;
+                
+                if (data instanceof Blob) {
+                    // Convert Blob to ArrayBuffer
+                    arrayBuffer = await data.arrayBuffer();
+                } else if (data instanceof ArrayBuffer) {
+                    arrayBuffer = data;
+                } else {
+                    console.error('Unexpected data type:', typeof data, data);
+                    return;
+                }
+                
+                const view = new DataView(arrayBuffer);
                 const fileIdLength = view.getUint32(0);
-                const fileId = new TextDecoder().decode(data.slice(4, 4 + fileIdLength));
-                const chunk = data.slice(4 + fileIdLength);
+                const fileId = new TextDecoder().decode(arrayBuffer.slice(4, 4 + fileIdLength));
+                const chunk = arrayBuffer.slice(4 + fileIdLength);
                 
                 const fileData = this.receivedChunks.get(fileId);
                 if (fileData) {
