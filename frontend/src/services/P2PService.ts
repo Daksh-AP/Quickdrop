@@ -511,8 +511,20 @@ export class P2PService {
                 } else if (message.type === 'file-end') {
                     const fileData = this.receivedChunks.get(message.fileId);
                     if (fileData) {
-                        const blob = new Blob(fileData.chunks);
-                        const file = new File([blob], fileData.fileName);
+                        console.log(`📥 Reconstructing file: ${fileData.fileName}, chunks: ${fileData.chunks.length}, total size: ${fileData.totalSize}, received: ${fileData.receivedSize}`);
+                        
+                        // Create blob from ArrayBuffer chunks
+                        const blob = new Blob(fileData.chunks, { type: 'application/octet-stream' });
+                        console.log(`📦 Created blob: size=${blob.size}, type=${blob.type}`);
+                        
+                        // Verify blob size matches expected size
+                        if (blob.size !== fileData.totalSize) {
+                            console.error(`❌ Size mismatch! Expected: ${fileData.totalSize}, Got: ${blob.size}`);
+                        }
+                        
+                        const file = new File([blob], fileData.fileName, { type: blob.type });
+                        console.log(`📁 Created file: ${file.name}, size: ${file.size}`);
+                        
                         this.onFileReceived?.(file);
                         this.receivedChunks.delete(message.fileId);
                         
@@ -548,7 +560,10 @@ export class P2PService {
                     fileData.receivedSize += chunk.byteLength;
                     
                     const progress = (fileData.receivedSize / fileData.totalSize) * 100;
+                    console.log(`📦 Chunk received for ${fileData.fileName}: ${chunk.byteLength} bytes, progress: ${progress.toFixed(1)}%`);
                     this.onTransferProgress?.(fileId, progress);
+                } else {
+                    console.error(`❌ No file data found for fileId: ${fileId}`);
                 }
             }
         } catch (error) {

@@ -98,22 +98,43 @@ const Receive: React.FC = () => {
     });
 
     p2pService.onFileReceivedCallback((file) => {
+      console.log(`🎯 File received callback triggered:`, {
+        name: file.name,
+        size: file.size,
+        type: file.type,
+        lastModified: file.lastModified
+      });
+      
       setDownloadedFiles(prev => [...prev, file]);
       
       // Show disconnecting status
       setIsDisconnecting(true);
       
-      // Trigger download
-      const url = URL.createObjectURL(file);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = file.name;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-      
-      console.log(`✅ File "${file.name}" downloaded successfully! Disconnecting in 2 seconds...`);
+      // Trigger download with better error handling
+      try {
+        const url = URL.createObjectURL(file);
+        console.log(`🔗 Created object URL: ${url}`);
+        
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = file.name;
+        a.style.display = 'none';
+        
+        document.body.appendChild(a);
+        console.log(`👆 Triggering download for: ${file.name}`);
+        a.click();
+        
+        // Clean up after a short delay
+        setTimeout(() => {
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+          console.log(`🧹 Cleaned up download elements for: ${file.name}`);
+        }, 100);
+        
+        console.log(`✅ File "${file.name}" download triggered successfully! Disconnecting in 2 seconds...`);
+      } catch (error) {
+        console.error(`❌ Error triggering download for ${file.name}:`, error);
+      }
     });
 
     return () => {
