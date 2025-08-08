@@ -84,6 +84,10 @@ const Share: React.FC = () => {
 
                 p2pService.onDeviceDisconnectedCallback((deviceId) => {
                     if (!isActive) return;
+                    const disconnectedDevice = connectedDevices.find(d => d.id === deviceId);
+                    if (disconnectedDevice) {
+                        console.log(`📱 Device "${disconnectedDevice.deviceInfo.name}" disconnected after download`);
+                    }
                     setConnectedDevices(prev => prev.filter(d => d.id !== deviceId));
                 });
 

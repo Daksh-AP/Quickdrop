@@ -55,6 +55,7 @@ const Receive: React.FC = () => {
   const [downloadedFiles, setDownloadedFiles] = useState<File[]>([]);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [senderId, setSenderId] = useState<string>('');
+  const [isDisconnecting, setIsDisconnecting] = useState(false);
 
   useEffect(() => {
     // Setup P2P service event handlers
@@ -99,6 +100,9 @@ const Receive: React.FC = () => {
     p2pService.onFileReceivedCallback((file) => {
       setDownloadedFiles(prev => [...prev, file]);
       
+      // Show disconnecting status
+      setIsDisconnecting(true);
+      
       // Trigger download
       const url = URL.createObjectURL(file);
       const a = document.createElement('a');
@@ -108,6 +112,8 @@ const Receive: React.FC = () => {
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
+      
+      console.log(`✅ File "${file.name}" downloaded successfully! Disconnecting in 2 seconds...`);
     });
 
     return () => {
@@ -256,14 +262,14 @@ const Receive: React.FC = () => {
                 <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
                   <div>
                     <Typography variant="h6" style={{ color: '#fff' }}>
-                      Connected to: {senderInfo?.name}
+                      {isDisconnecting ? 'Disconnecting...' : `Connected to: ${senderInfo?.name}`}
                     </Typography>
                     <Chip 
-                      label={senderInfo?.deviceType} 
+                      label={isDisconnecting ? 'Download Complete' : senderInfo?.deviceType} 
                       size="small" 
                       style={{ 
-                        backgroundColor: 'rgba(255, 255, 255, 0.2)', 
-                        color: '#fff',
+                        backgroundColor: isDisconnecting ? 'rgba(76, 175, 80, 0.3)' : 'rgba(255, 255, 255, 0.2)', 
+                        color: isDisconnecting ? '#4CAF50' : '#fff',
                         marginTop: '5px'
                       }} 
                     />

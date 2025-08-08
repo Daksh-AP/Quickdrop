@@ -252,6 +252,21 @@ export class P2PService {
             });
         });
 
+        this.socket.on('receiver-disconnected', (data: { receiverId: string }) => {
+            console.log('📱 Receiver disconnected:', data.receiverId);
+            this.onDeviceDisconnected?.(data.receiverId);
+            
+            // Clean up peer connection
+            const peerConnection = this.peerConnections.get(data.receiverId);
+            if (peerConnection) {
+                peerConnection.close();
+                this.peerConnections.delete(data.receiverId);
+            }
+            
+            // Clean up data channel
+            this.dataChannels.delete(data.receiverId);
+        });
+
         this.socket.on('files-updated', (data: { files: FileInfo[] }) => {
             this.onFilesUpdated?.(data.files);
         });
@@ -500,6 +515,12 @@ export class P2PService {
                         const file = new File([blob], fileData.fileName);
                         this.onFileReceived?.(file);
                         this.receivedChunks.delete(message.fileId);
+                        
+                        // Auto-disconnect after successful download
+                        console.log('📥 File download completed, disconnecting from session...');
+                        setTimeout(() => {
+                            this.disconnect();
+                        }, 2000); // Wait 2 seconds to show completion
                     }
                 }
             } else {
