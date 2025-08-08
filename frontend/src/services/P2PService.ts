@@ -366,11 +366,23 @@ export class P2PService {
 
     // Setup WebRTC peer connection
     private async setupPeerConnection(peerId: string, isInitiator: boolean) {
+        console.log('🔗 Setting up peer connection with:', peerId, 'isInitiator:', isInitiator);
+        console.log('🌐 Using ICE servers:', config.ICE_SERVERS);
+        
         const peerConnection = new RTCPeerConnection({
             iceServers: config.ICE_SERVERS
         });
 
         this.peerConnections.set(peerId, peerConnection);
+
+        // Log connection state changes
+        peerConnection.onconnectionstatechange = () => {
+            console.log('🔗 Peer connection state:', peerConnection.connectionState);
+        };
+
+        peerConnection.oniceconnectionstatechange = () => {
+            console.log('🧊 ICE connection state:', peerConnection.iceConnectionState);
+        };
 
         // Handle ICE candidates
         peerConnection.onicecandidate = (event) => {

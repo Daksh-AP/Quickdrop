@@ -70,6 +70,13 @@ const Receive: React.FC = () => {
       }
     });
 
+    // Track connected devices (senders)
+    p2pService.onDeviceConnectedCallback((device) => {
+      console.log('🔗 Device connected:', device);
+      setSenderId(device.id);
+      setSenderInfo({ name: device.deviceInfo.name, deviceType: device.deviceInfo.type });
+    });
+
     p2pService.onFilesUpdatedCallback((files) => {
       setAvailableFiles(files);
     });
@@ -137,14 +144,16 @@ const Receive: React.FC = () => {
   };
 
   const handleDownloadFile = (fileId: string) => {
+    console.log('🔽 Download requested for file:', fileId, 'from sender:', senderId);
+    
     if (!senderId) {
-      // For now, we'll assume there's only one sender
-      // In a real implementation, you'd track which device has which files
-      const firstConnectedDevice = 'sender'; // This should be the actual sender ID
-      p2pService.requestFile(fileId, firstConnectedDevice);
-    } else {
-      p2pService.requestFile(fileId, senderId);
+      console.error('❌ No sender ID available for download');
+      setError('No sender connected. Please reconnect.');
+      return;
     }
+    
+    console.log('📤 Requesting file from sender:', senderId);
+    p2pService.requestFile(fileId, senderId);
   };
 
   const handleDisconnect = () => {
