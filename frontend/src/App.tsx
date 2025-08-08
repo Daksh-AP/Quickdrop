@@ -106,6 +106,34 @@ function App() {
             <Route path="/share" element={<Share />} />
             <Route path="/receive" element={<Receive />} />
           </Routes>
+          
+          {/* Developer Signature */}
+          <Box
+            sx={{
+              position: 'fixed',
+              bottom: 16,
+              right: 16,
+              backgroundColor: 'rgba(255, 255, 255, 0.9)',
+              backdropFilter: 'blur(10px)',
+              borderRadius: '20px',
+              padding: '8px 16px',
+              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              zIndex: 1000,
+            }}
+          >
+            <Typography
+              variant="caption"
+              sx={{
+                color: '#1E3A8A',
+                fontWeight: 500,
+                fontSize: '0.75rem',
+                letterSpacing: '0.5px'
+              }}
+            >
+              Made By: Daksh A
+            </Typography>
+          </Box>
         </div>
       </Router>
     </ThemeProvider>
