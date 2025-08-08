@@ -51,7 +51,7 @@ const Home: React.FC = () => {
                     marginBottom: '20px',
                     fontWeight: 'bold'
                 }}>
-                    P2P File Sharing
+                    Quickdrop
                 </Typography>
                 
                 <Typography variant="h6" style={{ 
@@ -134,7 +134,7 @@ const Home: React.FC = () => {
                     marginBottom: '30px',
                     fontWeight: 'bold'
                 }}>
-                    Why Choose P2P?
+                    Why Choose Quickdrop?
                 </Typography>
 
                 <Box display="flex" flexWrap="wrap" justifyContent="center" gap={2} style={{ maxWidth: '900px' }}>

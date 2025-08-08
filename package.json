@@ -1,7 +1,7 @@
 {
-  "name": "p2p-file-sharing-app",
+  "name": "quickdrop",
   "version": "1.0.0",
-  "description": "A peer-to-peer file sharing application with a modern UI using Material Design.",
+  "description": "Quickdrop - A fast and secure peer-to-peer file sharing application with a modern ocean-themed UI.",
   "main": "dist/backend/server.js",
   "scripts": {
     "start": "node dist/backend/server.js",

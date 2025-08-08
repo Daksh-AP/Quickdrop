@@ -7,9 +7,9 @@ const StyledFab = styled(Fab)({
   position: 'fixed',
   bottom: '16px',
   right: '16px',
-  background: 'linear-gradient(45deg, #FF4081 30%, #FF80AB 90%)',
+  background: 'linear-gradient(45deg, #0077BE 30%, #00C4CC 90%)',
   '&:hover': {
-    background: 'linear-gradient(45deg, #FF80AB 30%, #FF4081 90%)',
+    background: 'linear-gradient(45deg, #00C4CC 30%, #0077BE 90%)',
   },
   transition: 'background 0.3s ease',
 });

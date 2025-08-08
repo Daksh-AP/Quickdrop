@@ -11,10 +11,18 @@ import './App.css';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#6FA3EF',
+      main: '#0077BE', // Deep Ocean Blue
     },
     secondary: {
-      main: '#FF6F61',
+      main: '#00C4CC', // Turquoise
+    },
+    background: {
+      default: '#F0F8FF', // Alice Blue
+      paper: '#FFFFFF',
+    },
+    text: {
+      primary: '#1E3A8A', // Navy Blue
+      secondary: '#0369A1', // Sky Blue
     },
   },
 });
@@ -25,10 +33,10 @@ function App() {
       <CssBaseline />
       <Router>
         <div className="App">
-          <AppBar position="static" style={{ background: 'linear-gradient(90deg, #6FA3EF 0%, #FF6F61 100%)' }}>
+          <AppBar position="static" style={{ background: 'linear-gradient(90deg, #0077BE 0%, #00C4CC 100%)' }}>
             <Toolbar>
               <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                P2P File Sharing
+                Quickdrop
               </Typography>
               <Box>
                 <Button color="inherit" component={Link} to="/">

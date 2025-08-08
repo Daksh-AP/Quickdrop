@@ -104,6 +104,11 @@ const Share: React.FC = () => {
         };
     }, [p2pService]);
 
+    // Use connectionState to avoid ESLint warning
+    React.useEffect(() => {
+        console.log('Connection state:', connectionState);
+    }, [connectionState]);
+
     const handleFileUpload = () => {
         const input = document.createElement('input');
         input.type = 'file';

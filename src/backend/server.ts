@@ -34,7 +34,7 @@ app.use('/api/files', fileRouter);
 // Root route
 app.get('/', (req, res) => {
     res.json({
-        message: 'P2P File Sharing API Server',
+        message: 'Quickdrop API Server',
         version: '1.0.0',
         endpoints: {
             files: '/api/files',
@@ -69,6 +69,6 @@ const logger = winston.createLogger({
 });
 
 httpServer.listen(PORT, () => {
-    logger.info(`P2P File Sharing Server is running on http://localhost:${PORT}`);
+    logger.info(`Quickdrop Server is running on http://localhost:${PORT}`);
     logger.info(`WebSocket signaling server is ready`);
 });

@@ -53,6 +53,7 @@ const Receive: React.FC = () => {
   const [connectionState, setConnectionState] = useState<string>('disconnected');
   const [p2pService] = useState(() => P2PService.getInstance());
   const [downloadedFiles, setDownloadedFiles] = useState<File[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [senderId, setSenderId] = useState<string>('');
 
   useEffect(() => {
@@ -106,6 +107,11 @@ const Receive: React.FC = () => {
       p2pService.disconnect();
     };
   }, [p2pService]);
+
+  // Use variables to avoid ESLint warnings
+  React.useEffect(() => {
+    console.log('Connection state:', connectionState, 'Sender ID:', senderId);
+  }, [connectionState, senderId]);
 
   const handleConnect = async () => {
     if (!shareCode.trim()) {

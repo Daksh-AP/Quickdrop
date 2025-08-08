@@ -1,13 +1,13 @@
-# 🚀 P2P File Sharing App
+# 🌊 Quickdrop
 
-A modern, secure peer-to-peer file sharing application built with React, Node.js, and WebRTC.
+A fast, secure peer-to-peer file sharing application with a beautiful ocean-themed UI. Built with React, Node.js, and WebRTC.
 
 ## ✨ Features
 
 - **Direct P2P Transfer**: Files transfer directly between devices without cloud storage
 - **Real-time Connection**: WebRTC for fast, secure connections
 - **Cross-Platform**: Works on desktop, mobile, and tablets
-- **Beautiful UI**: Modern Material Design interface
+- **Beautiful UI**: Modern Material Design interface with ocean theme
 - **Progress Tracking**: Real-time upload/download progress
 - **Room-based Sharing**: Simple 6-digit codes for easy connection
 
@@ -31,8 +31,8 @@ A modern, secure peer-to-peer file sharing application built with React, Node.js
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/p2p-file-sharing-app.git
-   cd p2p-file-sharing-app
+   git clone https://github.com/Windows-concept/quickdrop.git
+   cd quickdrop
    ```
 
 2. **Install backend dependencies**
