@@ -122,7 +122,14 @@ export class SignalingServer {
                 });
 
                 socket.join(data.roomId);
-                socket.emit('room-joined', { room, files: room.files });
+                
+                // Get sender info
+                const senderUser = this.users.get(room.sender);
+                socket.emit('room-joined', { 
+                    files: room.files,
+                    senderId: room.sender,
+                    senderInfo: senderUser?.deviceInfo
+                });
 
                 // Notify sender about new receiver
                 if (room.sender) {

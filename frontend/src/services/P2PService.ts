@@ -224,10 +224,21 @@ export class P2PService {
             this.onConnectionStateChange?.('room-created');
         });
 
-        this.socket.on('room-joined', (data: { files: FileInfo[] }) => {
+        this.socket.on('room-joined', (data: { files: FileInfo[]; senderId: string; senderInfo: DeviceInfo }) => {
             console.log('Room joined, available files:', data.files);
+            console.log('Connected to sender:', data.senderId, data.senderInfo);
+            
             this.onFilesUpdated?.(data.files);
             this.onConnectionStateChange?.('room-joined');
+            
+            // Notify about the connected sender
+            if (data.senderId && data.senderInfo) {
+                this.onDeviceConnected?.({
+                    id: data.senderId,
+                    deviceInfo: data.senderInfo,
+                    connectedAt: new Date().toLocaleTimeString()
+                });
+            }
         });
 
         this.socket.on('receiver-joined', (data: { receiverId: string; deviceInfo: DeviceInfo }) => {
