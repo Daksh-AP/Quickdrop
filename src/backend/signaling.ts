@@ -125,6 +125,12 @@ export class SignalingServer {
                 
                 // Get sender info
                 const senderUser = this.users.get(room.sender);
+                console.log('🔍 DEBUG: Sending room-joined with:', {
+                    files: room.files,
+                    senderId: room.sender,
+                    senderInfo: senderUser?.deviceInfo
+                });
+                
                 socket.emit('room-joined', { 
                     files: room.files,
                     senderId: room.sender,

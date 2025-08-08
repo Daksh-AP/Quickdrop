@@ -225,6 +225,7 @@ export class P2PService {
         });
 
         this.socket.on('room-joined', (data: { files: FileInfo[]; senderId: string; senderInfo: DeviceInfo }) => {
+            console.log('🔍 DEBUG: room-joined event received:', data);
             console.log('Room joined, available files:', data.files);
             console.log('Connected to sender:', data.senderId, data.senderInfo);
             
