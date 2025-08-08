@@ -1,0 +1,33 @@
+{
+  "name": "P2P File Sharing App",
+  "description": "A peer-to-peer file sharing application with WebRTC",
+  "repository": "https://github.com/yourusername/p2p-file-sharing-app",
+  "logo": "https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/webrtc.svg",
+  "keywords": ["node", "express", "webrtc", "p2p", "file-sharing", "react"],
+  "image": "heroku/nodejs",
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "env": {
+    "NODE_ENV": {
+      "description": "Node environment",
+      "value": "production"
+    },
+    "FRONTEND_URL": {
+      "description": "Frontend URL for CORS",
+      "value": "https://your-app-name.herokuapp.com"
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "basic"
+    }
+  },
+  "addons": [],
+  "scripts": {
+    "postdeploy": "echo 'Deployment complete!'"
+  }
+}

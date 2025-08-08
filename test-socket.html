@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Socket.IO Test</title>
+    <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+</head>
+<body>
+    <h1>Socket.IO Connection Test</h1>
+    <div id="status">Connecting...</div>
+    <button onclick="testCreateRoom()">Test Create Room</button>
+    <div id="log"></div>
+
+    <script>
+        const socket = io('http://localhost:5000', {
+            transports: ['websocket', 'polling']
+        });
+
+        const log = (message) => {
+            const logDiv = document.getElementById('log');
+            logDiv.innerHTML += '<div>' + new Date().toLocaleTimeString() + ': ' + message + '</div>';
+            console.log(message);
+        };
+
+        socket.on('connect', () => {
+            document.getElementById('status').textContent = 'Connected! Socket ID: ' + socket.id;
+            log('✅ Connected to server');
+        });
+
+        socket.on('connect_error', (error) => {
+            document.getElementById('status').textContent = 'Connection Error: ' + error;
+            log('❌ Connection error: ' + error);
+        });
+
+        socket.on('room-created', (data) => {
+            log('🎉 Room created: ' + data.roomId);
+        });
+
+        socket.on('error', (error) => {
+            log('❌ Server error: ' + error.message);
+        });
+
+        function testCreateRoom() {
+            log('🚀 Testing room creation...');
+            socket.emit('create-room', {
+                deviceInfo: {
+                    name: 'Test Device',
+                    type: 'Browser'
+                }
+            });
+        }
+    </script>
+</body>
+</html>
