@@ -35,9 +35,58 @@ function App() {
         <div className="App">
           <AppBar position="static" style={{ background: 'linear-gradient(90deg, #0077BE 0%, #00C4CC 100%)' }}>
             <Toolbar>
-              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                Quickdrop
-              </Typography>
+              <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
+                {/* AirDrop-style Logo */}
+                <Box
+                  sx={{
+                    width: 32,
+                    height: 32,
+                    borderRadius: '50%',
+                    background: 'radial-gradient(circle at 30% 30%, #5BA7FF 0%, #0066CC 100%)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginRight: 2,
+                    position: 'relative'
+                  }}
+                >
+                  {/* Upload Arrow */}
+                  <Box
+                    sx={{
+                      width: 0,
+                      height: 0,
+                      borderLeft: '4px solid transparent',
+                      borderRight: '4px solid transparent',
+                      borderBottom: '6px solid white',
+                      position: 'absolute',
+                      top: '6px'
+                    }}
+                  />
+                  <Box
+                    sx={{
+                      width: '2px',
+                      height: '12px',
+                      backgroundColor: 'white',
+                      position: 'absolute',
+                      top: '10px'
+                    }}
+                  />
+                  {/* Small circle at bottom */}
+                  <Box
+                    sx={{
+                      width: '4px',
+                      height: '4px',
+                      borderRadius: '50%',
+                      backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                      position: 'absolute',
+                      bottom: '4px'
+                    }}
+                  />
+                </Box>
+                <Typography variant="h6" component="div">
+                  Quickdrop
+                </Typography>
+              </Box>
               <Box>
                 <Button color="inherit" component={Link} to="/">
                   Home

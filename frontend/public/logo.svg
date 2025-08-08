@@ -1,0 +1,17 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="gradient" cx="50%" cy="30%" r="70%">
+      <stop offset="0%" style="stop-color:#4A9EFF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0066CC;stop-opacity:1" />
+    </radialGradient>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="256" cy="256" r="240" fill="url(#gradient)" />
+  
+  <!-- Arrow pointing up -->
+  <path d="M256 120 L320 200 L288 200 L288 320 L224 320 L224 200 L192 200 Z" fill="white" />
+  
+  <!-- Small circle at bottom (like AirDrop) -->
+  <circle cx="256" cy="360" r="24" fill="white" opacity="0.8" />
+</svg>
