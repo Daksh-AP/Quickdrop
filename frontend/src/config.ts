@@ -1,6 +1,6 @@
 export const config = {
-  // Use environment variable or fallback to localhost for development
-  BACKEND_URL: process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000',
+  // Use environment variable or fallback to Railway production backend
+  BACKEND_URL: process.env.REACT_APP_BACKEND_URL || 'https://web-production-9fcda.up.railway.app',
   
   // WebRTC STUN servers for production
   ICE_SERVERS: [
