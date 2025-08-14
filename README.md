@@ -1,6 +1,6 @@
 # 🌊 Quickdrop
 
-A fast, secure peer-to-peer file sharing application with a beautiful ocean-themed UI. Built with React, Node.js, and WebRTC.
+A fast, secure peer-to-peer file sharing application with a beautiful apple minimalist theme. Built with React, Node.js, and WebRTC.
 
 ## ✨ Features
 
@@ -15,7 +15,7 @@ A fast, secure peer-to-peer file sharing application with a beautiful ocean-them
 
 ### Frontend
 - React 19 with TypeScript
-- Material-UI for components
+- Apple Minimalist theme
 - Socket.IO client for signaling
 - WebRTC for P2P connections
 
